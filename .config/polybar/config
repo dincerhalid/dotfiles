@@ -1,0 +1,65 @@
+[colors]
+transparent = #00000000
+
+[bar/top]
+width = 99%
+height = 34
+
+wm-restack =i3
+
+background = #00000000
+foreground = #ccffffff
+
+transparent = #00000000
+
+border-color = ${colors.transparent}
+border-left-size = 14
+border-top-size = 4
+
+
+spacing = 5
+padding-right = 5
+module-margin = 20
+
+font-0 = Overpass:size=9.5;0
+;font-0 = NotoSans-Bold:size=9;-1
+font-1 = MaterialIcons:size=10;0
+font-2 = FontAwesome:size=10;0
+
+tray-position = right
+tray-transparent = true
+;tray-background = #000
+
+modules-left = i3
+modules-center = date
+modules-right =  
+
+
+
+[module/date]
+type = internal/date
+date = %%{F#fff}%H:%M%%{F-}
+date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+enable-click = true
+
+format = <label-state> <label-mode>
+
+label-focused = %index%
+label-focused-foreground = #ccF0706A
+label-focused-padding = 2
+
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+label-visible = %index%
+label-visible-padding = 2
+
+label-urgent = %index%
+label-urgent-padding = 2
