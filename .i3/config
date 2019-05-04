@@ -26,7 +26,7 @@ set $mod Mod4
 # workspace_layout tabbed <stacking|tabbed>
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-new_window pixel 2
+new_window none
 new_float normal
 
 # Hide borders
@@ -51,20 +51,21 @@ bindsym $mod+Return exec xst
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id "rofi -show drun -modi drun,run,window -sidebar-mode -terminal xst"
+bindysm XF86Search exec --no-startup-id rofi -show drun
 
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
 
 exec_always --no-startup-id killall -q polybar; sleep 1 ; polybar top
-
+exec_always --no-startup-id xinput --set-prop "DLL0665:01 06CB:76AD Touchpad" "libinput Natural Scrolling Enabled" 1
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
 #exec --no-startup-id volumeicon
 #bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
-exec --no-startup-id pulseaudio
+#exec --no-startup-id pulseaudio
 exec --no-startup-id pa-applet
 bindsym $mod+Ctrl+m exec pavucontrol
 
@@ -75,12 +76,20 @@ bindsym $mod+F3 exec xbacklight -inc 10;
 bindsym $mod+F2 exec xbacklight -dec 10;
 
 
+
+
 # multitouch gestures
 bindsym $mod+button6 workspace prev_on_output
 bindsym $mod+button7 workspace next_on_output
 
 
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id sh ~/.scripts/volume.sh up
+bindsym XF86AudioLowerVolume exec --no-startup-id sh ~/.scripts/volume.sh down
+bindsym XF86AudioMute exec --no-startup-id sh ~/.scripts/volume.sh mute 
 
+bindsym XF86MonBrightnessUp exec --no-startup-id sh ~/.scripts/brightness.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id sh ~/.scripts/brightness.sh down
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
@@ -219,7 +228,7 @@ for_window [class="Pavucontrol"] floating enable
 for_window [class="Kdeconnect-send"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-
+for_window [class="^.*"] border pixel 1
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
@@ -232,17 +241,22 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+
+# Lock screen
+bindsym $mod+9 exec --no-startup-id dm-tool lock
+
+
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
-set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+set $mode_system 1 lock, 2 log_out, 3 switch_user, 4 suspend, 5 hibernate, 6 reboot, 7 shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id "betterlockscreen -l dim -t 'if youre not me, get away'", mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+    bindsym 1 exec --no-startup-id "betterlockscreen -l dim -t 'if youre not me, get away'", mode "default"
+    bindsym 2 exec --no-startup-id i3exit suspend, mode "default"
+    bindsym 3 exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym 4 exec --no-startup-id i3exit logout, mode "default"
+    bindsym 5 exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym 6 exec --no-startup-id i3exit reboot, mode "default"
+    bindsym 7 exec --no-startup-id i3exit shutdown, mode "default"
 
     # exit system mode: "Enter" or "Escape"
     bindsym Return mode "default"
@@ -269,20 +283,19 @@ mode "$resize" {
         bindsym Escape mode "default"
 }
 
-# Lock screen
-bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id libinput-gestures-setup start
 #exec --no-startup-id nitrogen --restore
-exec --no-startup-id sh ~/.feh-bg
+exec --no-startup-id sh ~/.fehbg
 exec --no-startup-id blurwal -m 1 -s 5 &
 exec --no-startup-id indicator-kdeconnect
 exec --no-startup-id compton -b
-exec --no-startup-id manjaro-hello
+#exec --no-startup-id manjaro-hello
 exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
 #exec --no-starrtup-id pamac-tray
+#exec --no-startup-id xfce4-power-manager
 exec --no-startup-id cbatticon
 #exec --no-startup-id clipit
 # exec --no-startup-id blueman-applet

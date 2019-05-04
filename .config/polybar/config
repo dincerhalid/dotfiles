@@ -3,7 +3,7 @@ transparent = #00000000
 
 [bar/top]
 width = 99%
-height = 34
+height = 40
 
 wm-restack =i3
 
@@ -21,7 +21,7 @@ spacing = 5
 padding-right = 5
 module-margin = 20
 
-font-0 = Overpass:size=9.5;0
+font-0 = Overpass:size=10.5;0
 ;font-0 = NotoSans-Bold:size=9;-1
 font-1 = MaterialIcons:size=10;0
 font-2 = FontAwesome:size=10;0

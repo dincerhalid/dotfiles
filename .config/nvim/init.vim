@@ -3,7 +3,8 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'vim-airline/vim-airline'
 	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 	Plug 'morhetz/gruvbox'
-	Plug 'Shougo/deoplete.nvim'
+	Plug 'vimwiki/vimwiki'
+        "Plug 'Shougo/deoplete.nvim'"
 	Plug 'zchee/deoplete-jedi'
 	Plug 'alvan/vim-closetag'
 	Plug 'jiangmiao/auto-pairs'
@@ -64,5 +65,12 @@ set expandtab
 set tabstop=8
 set softtabstop=4
 set shiftwidth=4
+set nocompatible
 
 set shell=/bin/fish
+
+
+filetype plugin on
+syntax on
+
+hi Normal guibg=NONE ctermbg=NONE
